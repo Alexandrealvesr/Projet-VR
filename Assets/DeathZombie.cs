@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DeathZombie : MonoBehaviour
 
@@ -8,22 +9,23 @@ public class DeathZombie : MonoBehaviour
 
     bool dead=false;
 
+    public Transform target;
     public float delayDisappear = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.GetComponent<NavMeshAgent>().SetDestination(target.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        this.GetComponent<NavMeshAgent>().SetDestination(target.position);
     }
 
     void OnCollisionEnter(Collision other) {
      Debug.Log(other.gameObject.name);
-     if(!dead)
+     if(!dead && other.gameObject.name == target.name)
      {
          Debug.Log("Die");
         dead=true;
