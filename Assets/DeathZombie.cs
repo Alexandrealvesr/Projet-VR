@@ -11,13 +11,16 @@ public class DeathZombie : MonoBehaviour
     bool dead = false;
 
     public GameObject bodyPart;
-    public Transform target;
+    
     public float delayDisappear = 2.0f;
+
+    Transform target;
     Animator animator;
     NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start () {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         animator = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent> ();
         agent.SetDestination (target.position);
