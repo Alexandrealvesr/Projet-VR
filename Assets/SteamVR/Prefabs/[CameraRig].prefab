@@ -453,6 +453,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 894247267727941362, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Weapon
+      objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalPosition.x
