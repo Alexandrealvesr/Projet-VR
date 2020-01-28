@@ -28,7 +28,15 @@ public class DeathZombie : MonoBehaviour
 
     // Update is called once per frame
     void Update () {
-        agent.SetDestination (target.position);
+        if(!dead)
+        {
+            agent.SetDestination (target.position);
+        }
+        else
+        {
+            if(!agent.isStopped)agent.isStopped = true;
+        }
+        
     }
 
     void OnAnimatorMove ()
@@ -90,6 +98,14 @@ public class DeathZombie : MonoBehaviour
         Debug.Log (collision.gameObject.name);
 
 
+    }
+
+    public void DeathByFire()
+    {
+        Debug.Log ("Die");
+        dead = true;
+        this.gameObject.GetComponent<Animator> ().SetTrigger ("Death");
+        StartCoroutine (OnCompleteDeathAnim (this.gameObject.GetComponent<Animator> ()));
     }
 
     void CrawlZombie()

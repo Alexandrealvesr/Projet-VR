@@ -72,6 +72,11 @@
       "name": "/actions/mixedreality/in/ExternalCamera",
       "type": "pose",
       "requirement": "optional"
+    },
+    {
+      "name": "/actions/NewSet/in/Benzin",
+      "type": "boolean",
+      "requirement": "mandatory"
     }
   ],
   "action_sets": [
@@ -89,6 +94,10 @@
     },
     {
       "name": "/actions/mixedreality",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/NewSet",
       "usage": "single"
     }
   ],
