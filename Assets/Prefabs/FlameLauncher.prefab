@@ -141,3 +141,6 @@ MonoBehaviour:
   flameBallPrefab: {fileID: 2352503469224111456, guid: a1c9d6426447d9444a5661520227bf95,
     type: 3}
   point: {fileID: 2131358125}
+  benzin:
+    actionPath: /actions/default/in/Fire
+    needsReinit: 0

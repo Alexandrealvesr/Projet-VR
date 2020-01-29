@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 11489174}
   m_Layer: 0
   m_Name: '[CameraRig]'
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,37 +461,37 @@ PrefabInstance:
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.036
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.5213339
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.4777144
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.5213339
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.4777144
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
@@ -506,12 +506,17 @@ PrefabInstance:
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 894247267728229074, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341464222353320982, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d97f6b72d2defdc4d8bfd2360c6f7d6c, type: 3}

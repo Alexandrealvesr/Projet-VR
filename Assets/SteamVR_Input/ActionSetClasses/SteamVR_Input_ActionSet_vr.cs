@@ -14,15 +14,7 @@ namespace Valve.VR
     using UnityEngine;
     
     
-    public class SteamVR_Input_ActionSet_NewSet : Valve.VR.SteamVR_ActionSet
+    public class SteamVR_Input_ActionSet_vr : Valve.VR.SteamVR_ActionSet
     {
-        
-        public virtual SteamVR_Action_Boolean Benzin
-        {
-            get
-            {
-                return SteamVR_Actions.newSet_Benzin;
-            }
-        }
     }
 }
