@@ -13,9 +13,12 @@ public class BladeHit : MonoBehaviour
     public List<AudioClip> hitGround;
 
     private AudioSource audioSource;
+
+    private Rigidbody rigidbody;
     // Start is called before the first frame update
     void Start()
     {
+        rigidbody = this.GetComponent<Rigidbody>();
         hand = SteamVR_Input_Sources.RightHand;
         audioSource = GetComponent<AudioSource>();
     }
@@ -28,7 +31,8 @@ public class BladeHit : MonoBehaviour
 
     void OnCollisionEnter (Collision collision) {
 
-        float magnitude = Mathf.Min(collision.relativeVelocity.magnitude  / 100, 1) ;
+        
+        float magnitude = Mathf.Min(rigidbody.velocity.magnitude  / 100, 1) ;
         Debug.Log("HIT MAGNITUDE : " + magnitude);
         if(collision.gameObject.name.Contains("Zombie"))
         {
