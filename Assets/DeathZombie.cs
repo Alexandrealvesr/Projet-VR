@@ -53,7 +53,7 @@ public class DeathZombie : MonoBehaviour
     void OnCollisionEnter (Collision collision) {
         GameObject gb = collision.contacts[0].thisCollider.gameObject;
         //Si le collider n'est pas celui du zombie mais celui d'un enfant
-        if(gb != this.gameObject && !collision.contacts[0].thisCollider.gameObject.name.Contains("Zombie") && collision.gameObject.tag == "Weapon")
+        if(gb != this.gameObject && !collision.contacts[0].thisCollider.gameObject.name.Contains("Zombie") && collision.gameObject.tag == "Weapon" && collision.relativeVelocity.magnitude > 2)
         {
             
 
