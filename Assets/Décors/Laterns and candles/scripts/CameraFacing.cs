@@ -11,7 +11,7 @@ public class CameraFacing : MonoBehaviour
 {
 	public Camera cameraToLookAt;
 	void Awake() {
-		cameraToLookAt = Camera.main; }
+		 }
 	void Update() 
 	{
 		Vector3 v = cameraToLookAt.transform.position - transform.position;
