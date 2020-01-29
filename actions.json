@@ -41,6 +41,10 @@
       "requirement": "optional"
     },
     {
+      "name": "/actions/default/in/Fire",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -72,11 +76,6 @@
       "name": "/actions/mixedreality/in/ExternalCamera",
       "type": "pose",
       "requirement": "optional"
-    },
-    {
-      "name": "/actions/NewSet/in/Benzin",
-      "type": "boolean",
-      "requirement": "mandatory"
     }
   ],
   "action_sets": [
@@ -97,7 +96,7 @@
       "usage": "single"
     },
     {
-      "name": "/actions/NewSet",
+      "name": "/actions/vr",
       "usage": "single"
     }
   ],
