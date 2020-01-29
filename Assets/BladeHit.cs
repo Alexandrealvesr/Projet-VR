@@ -28,8 +28,8 @@ public class BladeHit : MonoBehaviour
 
     void OnCollisionEnter (Collision collision) {
 
-        float magnitude = Mathf.Min(collision.relativeVelocity.magnitude  / 100, 1) ;
-        Debug.Log("HIT MAGNITUDE : " + magnitude);
+        float magnitude = Mathf.Min(collision.relativeVelocity.magnitude  / 5f, 1) ;
+        Debug.Log(collision.gameObject.name + ": HIT MAGNITUDE : " + magnitude + "|" + collision.relativeVelocity);
         if(collision.gameObject.name.Contains("Zombie"))
         {
             audioSource.clip = hitZombie;

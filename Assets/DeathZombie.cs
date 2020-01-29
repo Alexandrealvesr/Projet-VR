@@ -95,7 +95,7 @@ public class DeathZombie : MonoBehaviour
             }
         }
 
-        Debug.Log (collision.gameObject.name);
+
 
 
     }
