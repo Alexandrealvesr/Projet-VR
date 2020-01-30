@@ -21,15 +21,15 @@ public class FlameBall : MonoBehaviour
         if(other.gameObject.GetComponent<DeathZombie>() != null )
         {
             other.gameObject.GetComponent<DeathZombie>().DeathByFire();
-            this.GetComponent<MeshRenderer>().enabled = false;
-            if (shot) this.GetComponent<SphereCollider>().radius *= 30f;
+            
+            if (shot) this.transform.localScale *= 30f;
             else
             {
                 Destroy(this.gameObject, 0.05f);
             }
             shot = false;
             
-           
+           this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 }
