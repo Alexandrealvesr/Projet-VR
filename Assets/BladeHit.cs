@@ -30,7 +30,7 @@ public class BladeHit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rigidbody.angularVelocity.magnitude > 0.5f)
+        if(rigidbody.angularVelocity.magnitude > 0.01f)
         {
             navmesh.enabled = false;
         }

@@ -81,20 +81,34 @@ public class DeathZombie : MonoBehaviour
                 CapsuleCollider colliderChild = gbPartChild.GetComponent<CapsuleCollider>();
                 colliderChild = (CapsuleCollider)CopyComponent(gbChild.GetComponent<CapsuleCollider>(),gbPartChild);
                 Destroy(gbPartChild,10);
+
+                if(!dead && (gbChild.tag=="Lethal"))
+                {
+                    Debug.Log ("Die");
+                    dead = true;
+                    animator.ResetTrigger("Attack");
+                    animator.ResetTrigger("Crawl");
+                    animator.SetTrigger ("Death");
+                    StartCoroutine (OnCompleteDeathAnim (animator));
+                }
+
+                
             }
             
             gb.SetActive(false);
             Debug.Log(collision.contacts[0].thisCollider.gameObject.name);
 
 
-            if(!dead && gb.tag=="Lethal")
+            if(!dead && (gb.tag=="Lethal"))
             {
                 Debug.Log ("Die");
                 dead = true;
-                this.gameObject.GetComponent<Animator> ().SetTrigger ("Death");
-                StartCoroutine (OnCompleteDeathAnim (this.gameObject.GetComponent<Animator> ()));
+                animator.ResetTrigger("Attack");
+                animator.ResetTrigger("Crawl");
+                animator.SetTrigger ("Death");
+                StartCoroutine (OnCompleteDeathAnim (animator));
             }
-            else if(gb.tag == "Legs")
+            else if(!dead && gb.tag == "Legs")
             {
                 
                 CrawlZombie();
@@ -110,7 +124,7 @@ public class DeathZombie : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Player" && !dead && !crawl)
         {
-            this.gameObject.GetComponent<Animator> ().SetTrigger("Attack");
+            animator.SetTrigger("Attack");
         }
     }
 
@@ -134,6 +148,7 @@ public class DeathZombie : MonoBehaviour
     /// <param name="anim"></param>
     /// <returns></returns>
     IEnumerator OnCompleteDeathAnim (Animator anim) {
+        
         while (anim.GetCurrentAnimatorStateInfo (0).normalizedTime < 0.99f) {
             yield return null;
         }

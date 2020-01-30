@@ -7,7 +7,10 @@ public class SpawnManager : MonoBehaviour
     ZombieSpawner[] zombieSpawners;
 
     [SerializeField]
-    uint nbZombiesToSpawn = 80;
+    float delayUntilStart = 10;
+
+    [SerializeField]
+    public uint nbZombiesToSpawn = 80;
     [SerializeField]
     uint nbSimultaneousZombies = 5;
 
@@ -16,7 +19,7 @@ public class SpawnManager : MonoBehaviour
 
     float currentTime = 0;
 
-    uint zombiesSpawned = 0;
+    public uint zombiesSpawned = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,13 +30,21 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime += Time.deltaTime;
-        if(currentTime >= rateSpawn)
+        if(delayUntilStart > 0)
         {
-            SpawnZombie();
-            Difficulty();
-            currentTime -= rateSpawn;
+            delayUntilStart -= Time.deltaTime;
         }
+        else
+        {
+            currentTime += Time.deltaTime;
+            if(currentTime >= rateSpawn)
+            {
+                SpawnZombie();
+                Difficulty();
+                currentTime -= rateSpawn;
+            }   
+        }
+        
     }
     public void Difficulty()
     {
