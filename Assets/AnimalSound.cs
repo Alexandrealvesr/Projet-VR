@@ -22,7 +22,8 @@ public class AnimalSound : MonoBehaviour
     {
         while(Application.isPlaying)
         {
-            yield return new WaitForSeconds(Random.Range(4f, 25f));
+            yield return new WaitForSeconds(Random.Range(10f, 30f));
+            audioSource.pitch = Random.Range(1f,1.8f);
             Vector3 pos = Random.onUnitSphere * 30;
             pos.y = 0;
             this.transform.localPosition = pos;

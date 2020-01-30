@@ -12,6 +12,12 @@ public class FlameThrower : MonoBehaviour
     private GameObject flameBallPrefab;
 
     [SerializeField]
+    private Material bookMat;
+
+    [SerializeField]
+    private Material flameMat;
+
+    [SerializeField]
     private Transform point;
 
     public SteamVR_Action_Boolean benzin;
@@ -24,6 +30,10 @@ public class FlameThrower : MonoBehaviour
     private float timeHold = 0f;
 
     private GameObject gb = null;
+
+    
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +47,8 @@ public class FlameThrower : MonoBehaviour
         if(benzin.GetStateDown(SteamVR_Input_Sources.LeftHand))
         Debug.Log(benzin.GetStateDown(SteamVR_Input_Sources.LeftHand));
 
+        if(!hold)bookMat.SetFloat("Vector1_6482DDD8",0.5f * Mathf.Min(1, elapsedTime / secondsCooldown));
+
         if(gb == null)
         {
             hold = false;
@@ -45,7 +57,9 @@ public class FlameThrower : MonoBehaviour
         if(hold)
         {
             timeHold += Time.deltaTime;
-            gb.transform.localScale = new Vector3(1, 1, 1) * Mathf.Min(1, timeHold / 0.5f);
+            gb.transform.localScale = new Vector3(1, 1, 1) * Mathf.Min(1, timeHold / 1f);
+            flameMat.SetFloat("Vector1_6482DDD8",0.3f * Mathf.Min(1, timeHold / 1f));
+            bookMat.SetFloat("Vector1_6482DDD8",0.5f * (1 - Mathf.Min(1, elapsedTime / secondsCooldown)));
         }
 
         if(benzin.GetStateDown(SteamVR_Input_Sources.LeftHand) && elapsedTime > secondsCooldown)
@@ -59,7 +73,7 @@ public class FlameThrower : MonoBehaviour
             StartBall();
         }
 
-        if (benzin.GetStateUp(SteamVR_Input_Sources.LeftHand) && elapsedTime > secondsCooldown && hold && timeHold > 0.5f)
+        if (benzin.GetStateUp(SteamVR_Input_Sources.LeftHand) && elapsedTime > secondsCooldown && hold && timeHold > 1f)
         {
             LaunchBall();
             elapsedTime = 0f;

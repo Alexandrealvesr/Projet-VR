@@ -22,10 +22,14 @@ public class FlameBall : MonoBehaviour
         {
             other.gameObject.GetComponent<DeathZombie>().DeathByFire();
             
-            if (shot) this.transform.localScale *= 30f;
+            if (shot) 
+            {
+                this.GetComponent<Animator>().SetTrigger("Hit");
+                this.GetComponent<MeshRenderer>().material.SetFloat("Vector1_6482DDD8",0.1f);
+            }
             else
             {
-                Destroy(this.gameObject, 0.05f);
+                Destroy(this.gameObject, 0.5f);
             }
             shot = false;
             
