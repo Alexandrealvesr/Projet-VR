@@ -7,12 +7,16 @@ public class SpawnManager : MonoBehaviour
     ZombieSpawner[] zombieSpawners;
 
     [SerializeField]
+    uint nbZombiesToSpawn = 80;
+    [SerializeField]
     uint nbSimultaneousZombies = 5;
 
     [SerializeField]
     float rateSpawn = 2f;
 
     float currentTime = 0;
+
+    uint zombiesSpawned = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +31,33 @@ public class SpawnManager : MonoBehaviour
         if(currentTime >= rateSpawn)
         {
             SpawnZombie();
+            Difficulty();
             currentTime -= rateSpawn;
         }
     }
-
+    public void Difficulty()
+    {
+        if(zombiesSpawned < 0.25f * nbZombiesToSpawn)
+        {
+            rateSpawn = 1;
+            nbSimultaneousZombies = 5;
+        }
+        else if (zombiesSpawned < 0.5f * nbZombiesToSpawn)
+        {
+            rateSpawn = 0.5f;
+            nbSimultaneousZombies = 13;
+        }
+        else if (zombiesSpawned < 0.75f * nbZombiesToSpawn)
+        {
+            rateSpawn = 0.2f;
+            nbSimultaneousZombies = 18;
+        }
+        else 
+        {
+            rateSpawn = 0.075f;
+            nbSimultaneousZombies = 25;
+        }
+    }
     public void SpawnZombie()
     {
         uint currentZombies = 0;
@@ -44,10 +71,11 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        if(currentZombies < nbSimultaneousZombies && spawnersAvailable.Count > 0)
+        if(currentZombies < nbSimultaneousZombies && spawnersAvailable.Count > 0 && zombiesSpawned < nbZombiesToSpawn )
         {
             int spawnIndex = Random.Range(0,spawnersAvailable.Count);
             spawnersAvailable[spawnIndex].SpawnZombie();
+            zombiesSpawned++;
         }
     }
 }

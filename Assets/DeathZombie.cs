@@ -8,7 +8,7 @@ public class DeathZombie : MonoBehaviour
 {
 
     bool canDie = false;
-    bool dead = false;
+    public bool dead = false;
 
     public GameObject bodyPart;
     

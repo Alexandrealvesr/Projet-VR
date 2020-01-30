@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlameBall : MonoBehaviour
 {
+    bool shot = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,14 @@ public class FlameBall : MonoBehaviour
         if(other.gameObject.GetComponent<DeathZombie>() != null )
         {
             other.gameObject.GetComponent<DeathZombie>().DeathByFire();
-            Destroy(this.gameObject);
+            if (shot) this.GetComponent<SphereCollider>().radius *= 30f;
+            else
+            {
+                Destroy(this.gameObject, 0.05f);
+            }
+            shot = false;
+            
+           
         }
     }
 }
