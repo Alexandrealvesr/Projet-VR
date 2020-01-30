@@ -94,10 +94,17 @@ public class DeathZombie : MonoBehaviour
                 StartCoroutine (OnCompleteDeathAnim (this.gameObject.GetComponent<Animator> ()));
             }
         }
+        
 
 
 
+    }
 
+    void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Player" && !dead)
+        {
+            this.gameObject.GetComponent<Animator> ().SetTrigger("Attack");
+        }
     }
 
     public void DeathByFire()
