@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class obelisk : MonoBehaviour
 {
-    public SpawnManager spawnManager;
+    public PlayerManager player;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +15,6 @@ public class obelisk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.localScale = new Vector3(this.transform.localScale.x, 0.7f * spawnManager.zombiesSpawned / spawnManager.nbZombiesToSpawn, this.transform.localScale.z);
+        this.transform.localScale = new Vector3(this.transform.localScale.x, 0.05f+0.65f * player.lifePoints / player.maxLifePoints, this.transform.localScale.z);
     }
 }

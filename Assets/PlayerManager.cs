@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
 
-    public int lifePoints = 3;
+    public int maxLifePoints = 3;
+    public int lifePoints;
 
     public MeshRenderer rendererMarteau;
 
@@ -16,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        lifePoints = maxLifePoints;
     }
 
     // Update is called once per frame
