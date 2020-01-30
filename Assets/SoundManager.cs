@@ -32,7 +32,8 @@ public class SoundManager : MonoBehaviour
         while(currentTimer < timer)
         {   
             currentTimer += 0.1f;
-            colorGrading.saturation.value = Mathf.Max(0, 100 * (1 - currentTimer / timer));
+            colorGrading.saturation.value = Mathf.Max(-100 , -100 * 2 * ( currentTimer / timer));
+            colorGrading.contrast.value = Mathf.Max(-100 , -100 *  ( currentTimer / timer));
             yield return new WaitForSeconds(0.1f);
         }
         
