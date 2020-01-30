@@ -9,6 +9,10 @@ public class PlayerManager : MonoBehaviour
     public int lifePoints;
 
     public MeshRenderer rendererMarteau;
+    
+    public MeshRenderer rendererBook;
+
+    public SoundManager soundManager;
 
     private float invincibilityTimer = 2f;
 
@@ -38,10 +42,18 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("AIE");
             timer = invincibilityTimer;
 
-            StartCoroutine(blinking());
+            
             if(lifePoints == 0)
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+                this.GetComponent<Collider>().enabled = false;
+                rendererBook.transform.parent.gameObject.SetActive(false);
+                rendererMarteau.transform.parent.gameObject.SetActive(false);
+                StartCoroutine(soundManager.Death());
+                
+            }
+            else
+            {
+                StartCoroutine(blinking());
             }
         }
     }
@@ -51,8 +63,10 @@ public class PlayerManager : MonoBehaviour
         while(timer > 0)
         {
             rendererMarteau.enabled = !rendererMarteau.enabled;
+            rendererBook.enabled = !rendererBook.enabled;
             yield return new WaitForSeconds(invincibilityTimer / 20f);
         }
         rendererMarteau.enabled = true;
+        rendererBook.enabled = true;
     }
 }
