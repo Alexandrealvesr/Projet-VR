@@ -42,7 +42,7 @@ public class BladeHit : MonoBehaviour
 
     void OnCollisionEnter (Collision collision) {
 
-        float magnitude = Mathf.Min(rigidbody.velocity.magnitude  / 5f, 1) ;
+        float magnitude = Mathf.Min(rigidbody.angularVelocity.magnitude  / 5f, 1) ;
         Debug.Log(collision.gameObject.name + ": HIT MAGNITUDE : " + magnitude + "|" + rigidbody.velocity);
         if(collision.gameObject.name.Contains("Zombie")  || collision.gameObject.name.Contains("BodyPart"))
         {
@@ -50,16 +50,22 @@ public class BladeHit : MonoBehaviour
             audioSource.volume =magnitude;
             audioSource.Play();
             
-            haptic.Execute(0f, 0.15f, 100f, magnitude , hand);
+            haptic.Execute(0f, 0.15f * magnitude, 100f, magnitude , hand);
         }
-        else
+        else if(collision.gameObject.tag == "Ground")
         {
             if(hitGround != null && hitGround.Count > 0)
             {
                 
                 audioSource.clip = hitGround[Random.Range(0,hitGround.Count - 1)];
             }
-            //Else ne devrait pas arriver, bsx
+            
+            audioSource.volume =magnitude;
+            audioSource.Play();
+            
+            haptic.Execute(0f, 0.15f * magnitude, 100f, magnitude , hand);
         }
+
+        
     }
 }
