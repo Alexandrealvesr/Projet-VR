@@ -9,6 +9,7 @@ public class DeathZombie : MonoBehaviour
 
     bool canDie = false;
     public bool dead = false;
+    public bool crawl = false;
 
     public GameObject bodyPart;
     
@@ -24,6 +25,7 @@ public class DeathZombie : MonoBehaviour
         animator = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent> ();
         agent.SetDestination (target.position);
+        this.GetComponent<AudioSource>().pitch = Random.Range(1.1f, 2.5f);
     }
 
     // Update is called once per frame
@@ -53,30 +55,29 @@ public class DeathZombie : MonoBehaviour
     void OnCollisionEnter (Collision collision) {
         GameObject gb = collision.contacts[0].thisCollider.gameObject;
         //Si le collider n'est pas celui du zombie mais celui d'un enfant
-        if(gb != this.gameObject && !collision.contacts[0].thisCollider.gameObject.name.Contains("Zombie") && collision.gameObject.tag == "Weapon" && collision.rigidbody.angularVelocity.magnitude > 0.5f)
+        if(gb != this.gameObject && !collision.contacts[0].thisCollider.gameObject.name.Contains("Zombie") && collision.gameObject.tag == "Weapon" && collision.rigidbody.angularVelocity.magnitude > 0.3f)
         {
             Debug.Log(collision.rigidbody.angularVelocity.magnitude);
-
-            if(gb.tag == "Legs")
-            {
-                
-                CrawlZombie();
-            }
+            
+            Vector3 powerDir = collision.gameObject.transform.rotation*(collision.rigidbody.angularVelocity);
+            
 
             GameObject gbPart = Instantiate(bodyPart,gb.transform.position,gb.transform.rotation);
             gbPart.GetComponent<MeshFilter>().mesh = gb.GetComponent<SkinnedMeshRenderer>().sharedMesh;
             CapsuleCollider collider= gbPart.GetComponent<CapsuleCollider>();
             collider = (CapsuleCollider) CopyComponent(gb.GetComponent<CapsuleCollider>(),gbPart);
-            
+            collider.enabled = false;
             Destroy(gbPart,10);
-
+            gbPart.GetComponent<Rigidbody>().AddForce(powerDir, ForceMode.Impulse);
+            Debug.DrawRay(gbPart.transform.position, gbPart.transform.position + powerDir,Color.white,10f);
             for(int i =0 ; i< gb.transform.childCount ; i++)
             {
                 GameObject gbChild = gb.transform.GetChild(i).gameObject;
 
                 GameObject gbPartChild = Instantiate(bodyPart,gbChild.transform.position,gbChild.transform.rotation);
                 gbPartChild.GetComponent<MeshFilter>().mesh = gbChild.GetComponent<SkinnedMeshRenderer>().sharedMesh;
-                
+                gbPartChild.GetComponent<Rigidbody>().AddForce(powerDir, ForceMode.Impulse);
+                Debug.DrawRay(gbPartChild.transform.position, gbPartChild.transform.position + powerDir,Color.white,10f);
                 CapsuleCollider colliderChild = gbPartChild.GetComponent<CapsuleCollider>();
                 colliderChild = (CapsuleCollider)CopyComponent(gbChild.GetComponent<CapsuleCollider>(),gbPartChild);
                 Destroy(gbPartChild,10);
@@ -93,11 +94,24 @@ public class DeathZombie : MonoBehaviour
                 this.gameObject.GetComponent<Animator> ().SetTrigger ("Death");
                 StartCoroutine (OnCompleteDeathAnim (this.gameObject.GetComponent<Animator> ()));
             }
+            else if(gb.tag == "Legs")
+            {
+                
+                CrawlZombie();
+            }
+            
         }
+        
 
 
 
+    }
 
+    void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Player" && !dead && !crawl)
+        {
+            this.gameObject.GetComponent<Animator> ().SetTrigger("Attack");
+        }
     }
 
     public void DeathByFire()
@@ -111,6 +125,7 @@ public class DeathZombie : MonoBehaviour
     void CrawlZombie()
     {
         animator.SetTrigger ("Crawl");
+        crawl = true;
     }
     
     /// <summary>
