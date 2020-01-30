@@ -21,6 +21,7 @@ public class FlameBall : MonoBehaviour
         if(other.gameObject.GetComponent<DeathZombie>() != null )
         {
             other.gameObject.GetComponent<DeathZombie>().DeathByFire();
+            this.GetComponent<MeshRenderer>().enabled = false;
             if (shot) this.GetComponent<SphereCollider>().radius *= 30f;
             else
             {

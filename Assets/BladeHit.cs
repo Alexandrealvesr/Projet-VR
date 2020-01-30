@@ -47,6 +47,10 @@ public class BladeHit : MonoBehaviour
         if(collision.gameObject.name.Contains("Zombie")  || collision.gameObject.name.Contains("BodyPart"))
         {
             audioSource.clip = hitZombie;
+            audioSource.volume =magnitude;
+            audioSource.Play();
+            
+            haptic.Execute(0f, 0.15f, 100f, magnitude , hand);
         }
         else
         {
@@ -57,8 +61,5 @@ public class BladeHit : MonoBehaviour
             }
             //Else ne devrait pas arriver, bsx
         }
-        audioSource.volume =magnitude;
-        audioSource.Play();
-        haptic.Execute(0f, 0.15f, 100f, magnitude , hand);
     }
 }
