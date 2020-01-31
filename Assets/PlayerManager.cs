@@ -11,6 +11,9 @@ public class PlayerManager : MonoBehaviour
     public MeshRenderer rendererMarteau;
     
     public MeshRenderer rendererBook;
+    public AudioSource hurtSound;
+    public AudioSource deadSound;
+
 
     public SoundManager soundManager;
 
@@ -39,12 +42,12 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.GetComponent<DeathZombie>() != null && timer <= 0f && !collision.gameObject.GetComponent<DeathZombie>().dead)
         {
             lifePoints--;
-            Debug.Log("AIE");
             timer = invincibilityTimer;
 
             
             if(lifePoints == 0)
             {
+                deadSound.Play();
                 this.GetComponent<Collider>().enabled = false;
                 rendererBook.transform.parent.gameObject.SetActive(false);
                 rendererMarteau.transform.parent.gameObject.SetActive(false);
@@ -53,6 +56,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
+                hurtSound.Play();
                 StartCoroutine(blinking());
             }
         }

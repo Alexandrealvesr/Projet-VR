@@ -20,16 +20,13 @@ public class FlameBall : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         if(other.gameObject.GetComponent<DeathZombie>() != null )
         {
+            AudioSource.PlayClipAtPoint(this.GetComponent<AudioSource>().clip, this.transform.position);
             other.gameObject.GetComponent<DeathZombie>().DeathByFire();
-            
-            if (shot) 
-            {
-                this.GetComponent<Animator>().SetTrigger("Hit");
-                this.GetComponent<MeshRenderer>().material.SetFloat("Vector1_6482DDD8",0.1f);
-            }
+
+            if (shot) this.transform.localScale *= 30f;
             else
             {
-                Destroy(this.gameObject, 0.5f);
+                Destroy(this.gameObject, 0.05f);
             }
             shot = false;
             

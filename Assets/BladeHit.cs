@@ -46,7 +46,8 @@ public class BladeHit : MonoBehaviour
         Debug.Log(collision.gameObject.name + ": HIT MAGNITUDE : " + magnitude + "|" + rigidbody.velocity);
         if(collision.gameObject.name.Contains("Zombie")  || collision.gameObject.name.Contains("BodyPart"))
         {
-            audioSource.clip = hitZombie;
+            
+                audioSource.clip = hitZombie;
             audioSource.volume =magnitude;
             audioSource.Play();
             

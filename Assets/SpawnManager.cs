@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     ZombieSpawner[] zombieSpawners;
 
     [SerializeField]
-    float delayUntilStart = 10;
+    public float delayUntilStart = 10;
 
     [SerializeField]
     public uint nbZombiesToSpawn = 80;

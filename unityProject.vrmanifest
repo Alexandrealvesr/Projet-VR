@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.projetvr.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\UnityProjects\\Projet-VR\\actions.json",
+      "action_manifest_path": "C:\\Users\\Thomas\\Documents\\Projet-VR\\actions.json",
       "strings": {
         "en_us": {
           "name": "Projet-VR [Testing]"

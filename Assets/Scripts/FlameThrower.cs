@@ -31,9 +31,11 @@ public class FlameThrower : MonoBehaviour
 
     private GameObject gb = null;
 
-    
+    public AudioSource holdHandler;
+    public AudioSource throwHandler;
+    public AudioSource notEnoughManaHandler;
+    public AudioSource spellReadyHandler;
 
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -44,8 +46,6 @@ public class FlameThrower : MonoBehaviour
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if(benzin.GetStateDown(SteamVR_Input_Sources.LeftHand))
-        Debug.Log(benzin.GetStateDown(SteamVR_Input_Sources.LeftHand));
 
         if(!hold)bookMat.SetFloat("Vector1_6482DDD8",0.5f * Mathf.Min(1, elapsedTime / secondsCooldown));
 
@@ -62,15 +62,22 @@ public class FlameThrower : MonoBehaviour
             bookMat.SetFloat("Vector1_6482DDD8",0.5f * (1 - Mathf.Min(1, elapsedTime / secondsCooldown)));
         }
 
-        if(benzin.GetStateDown(SteamVR_Input_Sources.LeftHand) && elapsedTime > secondsCooldown)
+        if(benzin.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
-            hold = true;
-            if(gb != null)
-            {
-                Destroy(gb);
-                gb = null;
+            if (elapsedTime > secondsCooldown) {
+
+                hold = true;
+                if (gb != null)
+                {
+                    Destroy(gb);
+                    gb = null;
+                }
+                StartBall();
             }
-            StartBall();
+            else
+            {
+                notEnoughManaHandler.Play();
+            }
         }
 
         if (benzin.GetStateUp(SteamVR_Input_Sources.LeftHand) && elapsedTime > secondsCooldown && hold && timeHold > 1f)
@@ -84,19 +91,25 @@ public class FlameThrower : MonoBehaviour
 
     public void StartBall()
     {
-        gb = Instantiate(flameBallPrefab, this.point.position, this.point.rotation, this.point);
+        gb = Instantiate(flameBallPrefab, new Vector3(this.point.position.x+0.01f, this.point.position.y+0.05f, this.point.position.z), this.point.rotation, this.point);
         gb.transform.localScale = Vector3.zero;
+        gb.GetComponent<Rigidbody>().isKinematic= true;
+        holdHandler.mute = false;
     }
 
     public void LaunchBall()
     {
         if(gb != null)
         {
+            gb.GetComponent<Rigidbody>().isKinematic = false;
             gb.transform.localScale = new Vector3(1, 1, 1);
             gb.transform.parent = null;
             gb.GetComponent<Rigidbody>().AddForce(this.transform.up * 1000);
             gb = null;
         }
-       
+        holdHandler.mute = true;
+        throwHandler.Play();
+        spellReadyHandler.Play();
+
     }
 }

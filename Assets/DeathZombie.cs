@@ -25,7 +25,7 @@ public class DeathZombie : MonoBehaviour
         animator = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent> ();
         agent.SetDestination (target.position);
-        this.GetComponent<AudioSource>().pitch = Random.Range(1.1f, 2.5f);
+        this.GetComponent<AudioSource>().pitch = Random.Range(0.5f, 2.0f);
     }
 
     // Update is called once per frame
@@ -57,7 +57,8 @@ public class DeathZombie : MonoBehaviour
         //Si le collider n'est pas celui du zombie mais celui d'un enfant
         if(gb != this.gameObject && !collision.contacts[0].thisCollider.gameObject.name.Contains("Zombie") && collision.gameObject.tag == "Weapon" && collision.rigidbody.angularVelocity.magnitude > 4f)
         {
-            Debug.Log(collision.rigidbody.angularVelocity.magnitude);
+            Debug.Log(collision.gameObject.name);
+
             
             Vector3 powerDir = collision.gameObject.transform.rotation*(collision.rigidbody.angularVelocity);
             
